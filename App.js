@@ -17,11 +17,19 @@ class App extends Component{
       hotdogs: hotdogs
     }) 
   }
+  deleteHotdog=(id)=>{     //filter out deleted hotdog's id
+    let hotdogs=this.state.hotdogs.filter(hotdog=>{
+      return hotdog.id !== id
+    });
+    this.setState({
+      hotdogs:hotdogs //set the state list to the filtered list
+    })
+  }
   render(){
     return(
     <div myclass="App">
       <h2>Catalogue of Hotdogs</h2>
-      <Hotdogs hotdogs={this.state.hotdogs}/>
+      <Hotdogs deleteHotdog={this.deleteHotdog} hotdogs={this.state.hotdogs}/>
       <AddHotdog addHotdog={this.addHotdog}/>
     </div>
     );
