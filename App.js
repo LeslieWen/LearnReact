@@ -1,37 +1,38 @@
-import React, {Component} from 'react';
-import Hotdogs from './Hotdogs';
-import AddHotdog from './AddHotdog';
-class App extends Component{  
+import React, { Component } from 'react';
+import Todos from './Todos'
+import AddTodo from './AddTodo'
+
+class App extends Component{
   state={
-    hotdogs:[
-      {name: 'Polish', units:50, meat:'Pork',id:1},
-      {name: 'Beef', units:30, meat:'Beef',id:2},
-      {name: 'Valu-Hotdog', units:356, meat:'Mystery Meat',id:3}
-     ]
+    todos: [
+      {id:1,content:'buy some hotdogs'},
+      {id:2,content:'buy some ketchup'}
+    ]
   }
-  addHotdog=(hotdog)=>{
-    hotdog.id=Math.random();
-    console.log(this.state);
-    let hotdogs= [...this.state.hotdogs,hotdog]; // spread array, copying array
-    this.setState({
-      hotdogs: hotdogs
-    }) 
-  }
-  deleteHotdog=(id)=>{     //filter out deleted hotdog's id
-    let hotdogs=this.state.hotdogs.filter(hotdog=>{
-      return hotdog.id !== id
+  deleteTodo=(id)=>{
+    const todos=this.state.todos.filter(todo=>{
+      return todo.id !== id
     });
     this.setState({
-      hotdogs:hotdogs //set the state list to the filtered list
+      todos:todos
     })
   }
+  addTodo=(todo)=>{
+    todo.id=Math.random();
+    let todos=[...this.state.todos,todo] //add new todo to list
+    this.setState({
+      todos:todos
+    })
+
+  }
+
   render(){
-    return(
-    <div myclass="App">
-      <h2>Catalogue of Hotdogs</h2>
-      <Hotdogs deleteHotdog={this.deleteHotdog} hotdogs={this.state.hotdogs}/>
-      <AddHotdog addHotdog={this.addHotdog}/>
-    </div>
+    return (
+      <div className="todo-app container">
+      <h1 className="center blue-text">Todo List</h1>
+      <Todos todos={this.state.todos} deleteTodo={this.deleteTodo}/>
+      <AddTodo addTodo={this.addTodo}/>
+      </div>
     );
   }
 }
